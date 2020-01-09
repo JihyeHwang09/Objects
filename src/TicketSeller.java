@@ -21,15 +21,9 @@ public class TicketSeller {
 //        return ticketOffice;
 //    }
 
+//    TicketSeller가 Audience의 인터페이스에만 의존하도록 수정
+//    TicketSeller가 buy 메서드를 호출하도록 코드 변경
     public void sellTo(Audience audience) {
-        if (audience.getBag().hasInvitation()) {
-            Ticket ticket = ticketOffice.getTicket();
-            audience.getBag().setTicket(ticket);
-        } else {
-            Ticket ticket = ticketOffice.getTicket();
-            audience.getBag().minusAmount(ticket.getFee());
-            ticketOffice.plusAmount(ticket.getFee());
-            audience.getBag().setTicket(ticket);
-        }
+            ticketOffice.plusAmount(audience.buy(ticketOffice.getTicket()));
     }
 }
