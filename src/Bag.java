@@ -1,3 +1,9 @@
+/*
+Bag을 자율적인 존재로 바꿔보자.
+Bag의 내부 상태에 접근하는 모든 로직을 Bag 안으로 캡슐화해서 결합도를 낮추면 된다.
+-> Bag에 hold 메서드를 추가
+-> Bag은 관련된 상태와 행위를 함께 가지는 응집도 높은 클래스가 되었다.
+ */
 public class Bag {
     private Long amount; // 현금
     private Invitation invitation;
@@ -9,32 +15,26 @@ public class Bag {
     -> Bag의 인스턴스를 생성하는 시점에 이 제약을 강제할 수 있도록
     생성자를 추가
      */
-    public Bag(long amount) {
-        this(null, amount);
+    public Long hold(Ticket ticket) {
+       if(hasInvitation()) {
+           setTicket(ticket);
+           return 0L;
+       } else {
+           setTicket(ticket);
+           minusAmount(ticket.getFee());
+           return ticket.getFee();
+       }
     }
 
-    public Bag(Invitation invitation, long amount) {
-        this.invitation = invitation;
-        this.amount = amount;
-    }
-
-    public boolean hasInvitation() {
-        return invitation != null;
-    }
-
-    public boolean hasTicket() {
-        return ticket != null;
-    }
-
-    public void setTicket(Ticket ticket) {
+    private void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
 
-    public void minusAmount(Long amount) {
-        this.amount -= amount;
+    private boolean hasInvitation() {
+        return invitation != null;
     }
 
-    public void plusAmount(Long amount) {
-        this.amount += amount;
+    private void minusAmount(Long amount) {
+        this.amount -= amount;
     }
 }

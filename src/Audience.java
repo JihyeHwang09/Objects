@@ -14,8 +14,6 @@ public class Audience {
  -> 외부에서는 더 이상 Audience가 Bag을 소유하고 있다는 사실을 알 필요가 없다!
  -> 이제, Audience 크래스에서 getBag 메서드를 제거할 수 있고,
     결과적으로 Bag의 존재를 내부로 캡슐화할 수 있게 됐다.
-
-
  */
     public Long buy(Ticket ticket) {
         if (bag.hasInvitation()) {
