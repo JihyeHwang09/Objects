@@ -15,14 +15,10 @@ public class Audience {
  -> 이제, Audience 크래스에서 getBag 메서드를 제거할 수 있고,
     결과적으로 Bag의 존재를 내부로 캡슐화할 수 있게 됐다.
  */
+/*
+    Audience를 Bag의 구현이 아닌 인터페이스에만 의존하도록 수정하자.
+ */
     public Long buy(Ticket ticket) {
-        if (bag.hasInvitation()) {
-            bag.setTicket(ticket);
-            return 0L;
-        } else {
-            bag.setTicket(ticket);
-            bag.minusAmount(ticket.getFee());
-            return ticket.getFee();
-        }
+        return bag.hold(ticket);
     }
 }

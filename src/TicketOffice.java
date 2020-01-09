@@ -9,18 +9,20 @@ public class TicketOffice {
     //티켓을 판매하는 getTicket 메서드는 편의를 위해 tickets 컬렉션에서 맨 첫 번째 위치에 저장된 Ticket을 반환하는 것으로 구현
     private List<Ticket> tickets = new ArrayList<>();
 
-    public TicketOffice(Long amount, Ticket ... tickets) {
+    public TicketOffice(Long amount, Ticket... tickets) {
         this.amount = amount;
         this.tickets.addAll(Arrays.asList(tickets));
     }
 
-    public Ticket getTicket() {
-        return tickets.remove(0);
+    //  TicketOffice가 Audience에게 직접 티켓을 판매하기 때문에
+    //  TicketOffice가 Audience에 관해 알고 있어야 한다.
+    // (변경 전에는 존재하지 않았던 새로운 의존성이 추가된 것)
+    public void sellTicketTo(Audience audience) {
+        plusAmount(audience.buy(getTicket()));
     }
 
-//판매금액을 더하거나 차감하는 plusAmount와 minusAmount 메서드
-    public void minusAmount(Long amount) {
-        this.amount -= amount;
+    private Ticket getTicket() {
+        return tickets.remove(0);
     }
 
     public void plusAmount(Long amount) {

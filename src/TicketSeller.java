@@ -16,14 +16,12 @@ public class TicketSeller {
     public TicketSeller(TicketOffice ticketOffice) {
         this.ticketOffice = ticketOffice;
     }
-
-//    public TicketOffice getTicketOffice() {
-//        return ticketOffice;
-//    }
-
-//    TicketSeller가 Audience의 인터페이스에만 의존하도록 수정
-//    TicketSeller가 buy 메서드를 호출하도록 코드 변경
+    /*
+    TicketSeller는 TicketOffice의 sellTicketTo 메서드를 호출함으로써
+    원하는 목적을 달성할 수 있다.
+    -> TicketSeller가 TicketOffice의 구현이 아닌, 인터페이스에만 의존하게 되었다는 점이다!
+     */
     public void sellTo(Audience audience) {
-            ticketOffice.plusAmount(audience.buy(ticketOffice.getTicket()));
+        ticketOffice.sellTicketTo(audience);
     }
 }
