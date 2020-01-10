@@ -28,4 +28,19 @@ public class Screening {
     public Money getMovieFee() {
         return movie.getFee();
     }
+
+    public Reservation reserve(Customer customer, int audienceCount) {
+        // calculateFee라는 private 메서드를 호출해서 요금을 계산한 후, 그 결과를 Reservation의 생성자에 전달한다.
+        return new Reservation(customer, this, calculateFee(audienceCount), audienceCount);
+    }
+
+    private Money calculateFee(int audienceCount) {
+        /*
+         다시 Movie의 caculateMovieFee 메서드를 호출한다.(메시지를 전송한다.)
+         Movie의 caculateMovieFee 메서드의 반환 값은 1인당 예매 요금
+         -> Screening은 전체 예매 요금을 구하기 위해 caculateMovieFee 메서드의 반환값에
+            인원수인 audienceCount를 곱한다.
+         */
+        return Movie.calculateMovieFee(this).times(audienceCount);
+    }
 }
