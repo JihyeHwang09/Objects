@@ -12,6 +12,12 @@ public class Movie {
 
      */
     public Movie(String title, Duration runningTime, Money fee, DiscountPolicy discountPolicy) {
+// 이 방식의 문제점: 할인 정책이 없는 경우를 예외 케이스로 취급하기 때문에 지금까지 일관성 있던 협력 방식이 무너지게 된다.
+//   -> 책임의 위치를 결정하기 위해 조건문을 사용하는 것은 협력의 설계 측면에서 대부분의 경우 좋지 않은 선택이다.
+//        if (discountPolicy == null) {
+//            return fee;
+//        }
+
         this.title = title;
         this.runningTime = runningTime;
         this.fee = fee;
