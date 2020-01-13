@@ -33,6 +33,6 @@ public class Movie {
     Movie는 기본요금인 fee에서 반환된 할인 요금을 차감한다.
      */
     public Money calculateMovieFee(Screening screening) {
-        return fee.minus(discountPolicy.caculateDiscountAmount(screening));
+        return fee.minus(discountPolicy.calculateDiscountAmount(screening));
     }
 }
