@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.util.List;
 
 /*
 Screening은  Movie와 협력하기 위해 calculateMovieFee 메시지를 전송한다.
@@ -13,6 +14,10 @@ public class Movie {
     private Money discountAmount;
     private double discountPercent;
 
+    private List<PeriodCondition> periodConditions;
+    private List<SequenceCondition> sequenceConditions;
+
+
     public Money calculateMovieFee(Screening screening) {
         if (isDiscountable(screening)) {
             return fee.minus(calculateDiscountAmount());
@@ -21,9 +26,19 @@ public class Movie {
     }
 
     private boolean isDiscountable(Screening screening) {
-        return discountConditions.stream()
+        return checkPeriodConditions(screening) || checkSequenceConditions(screening);
+    }
+
+    private boolean checkPeriodConditions(Screening screening) {
+        return periodConditions.stream()
                 .anyMatch(condition -> condition.isSatisfiedBy(screening));
     }
+
+    private boolean checkSequenceConditions(Screening screening) {
+        return sequenceConditions.stream()
+                .anyMatch(condition -> condition.isSatisfiedBy(screening));
+    }
+
 
     /*
     실제로 할인 요금을 계산하는 calculateMovieFee 메서드는 movieType의 값에 따라

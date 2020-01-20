@@ -14,7 +14,7 @@ public class Screening {
      영화를 예매하기 위해서는 movie에게 '가격을 계산하라' 메시지를 전송해서
      계산된 영화 요금을 반환받아야 한다.
      calculateFee 메서드는 이렇게 반환된 요금에 예매 인원수를 곱해서
-     전체 예매 요금을 계산 -sh> Reservation을 생성해서 반환한다.
+     전체 예매 요금을 계산 -> Reservation을 생성해서 반환한다.
      */
     private Money calculateFee() {
         /*
