@@ -14,8 +14,44 @@ public class Movie {
     private double discountPercent;
 
     public Money calculateMovieFee(Screening screening) {
-    /*
-     Movie는 먼저
-     */
+        if (isDiscountable(screening)) {
+            return fee.minus(calculateDiscountAmount());
+        }
+        return fee;
     }
+
+    private boolean isDiscountable(Screening screening) {
+        return discountConditions.stream()
+                .anyMatch(condition -> condition.isSatisfiedBy(screening));
+    }
+
+    /*
+    실제로 할인 요금을 계산하는 calculateMovieFee 메서드는 movieType의 값에 따라
+    적절한 메서드를 호출한다.
+     */
+    private Money calculateDiscountAmount() {
+        switch (movieType) {
+            case AMOUNT_DISCOUNT:
+                return calculateAmountDiscountAmount();
+            case PERCENT_DISCOUNT:
+                return calculatePercentDiscountAmount();
+            case NONE_DISCOUNT:
+                return calculateNoneDiscountAmount();
+        }
+        throw new IllegalStateException();
+    }
+
+    private Money calculateAmountDiscountAmount() {
+        return discountAmount;
+    }
+
+    private Money calculatePercentDiscountAmount() {
+        return fee.times(discountPercent);
+    }
+
+    private Money calculateNoneDiscountAmount() {
+        return Money.ZERO;
+    }
+
+
 }
