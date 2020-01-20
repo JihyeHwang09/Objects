@@ -14,9 +14,7 @@ public class Movie {
     private Money discountAmount;
     private double discountPercent;
 
-    private List<PeriodCondition> periodConditions;
-    private List<SequenceCondition> sequenceConditions;
-
+    private List<DiscountCondition> discountConditions;
 
     public Money calculateMovieFee(Screening screening) {
         if (isDiscountable(screening)) {
